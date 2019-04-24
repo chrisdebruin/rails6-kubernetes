@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: rails6-migrate
-        image: localhost:5000/rails6
+        image: chrisdebruin/rails6
         command: ["bundle", "exec", "rails", "db:prepare"]
         imagePullPolicy: Always
       restartPolicy: Never
