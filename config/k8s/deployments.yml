@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  namespace: staging-env
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      volumes:
+        - name: mysql-storage
+          persistentVolumeClaim:
+            claimName: database-persistent-volume-claim
+      containers:
+        - name: mysql
+          image: mysql:5.7
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: mysql-storage
+              mountPath: /var/lib/mysql
+              subPath: mysql
+          env:
+            - name: MYSQL_ALLOW_EMPTY_PASSWORD
+              value: 'yes'
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: rails6
+  name: rails6-deployment
+  namespace: staging-env
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: rails6
+  template:
+    metadata:
+      labels:
+        app: rails6
+    spec:
+      containers:
+      - image: localhost:5000/rails6
+        name: rails6
+        ports:
+        - containerPort: 3000
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 5
+          timeoutSeconds: 30

@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: rails6-db-migrate
+  namespace: staging-env
+spec:
+  completions: 1
+  template:
+    metadata:
+      name: rails6-db-migrate
+    spec:
+      containers:
+      - name: rails6-migrate
+        image: localhost:5000/rails6
+        command: ["bundle", "exec", "rails", "db:prepare"]
+        imagePullPolicy: Always
+      restartPolicy: Never

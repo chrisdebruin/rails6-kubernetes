@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: rails6-ingress
+  namespace: staging-env
+spec:
+  rules:
+    - host: rails6.192.168.99.100.xip.io
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: rails6-service
+              servicePort: 80

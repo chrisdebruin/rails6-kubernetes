@@ -1,0 +1,14 @@
+.DS_Store
+.gitignore
+.git
+.ruby*
+coverage
+
+/tmp/*
+/log/*
+
+#Npm files
+/node_modules/*
+
+/config/*.key
+/public/packs*
