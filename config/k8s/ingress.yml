@@ -5,7 +5,7 @@ metadata:
   namespace: staging-env
 spec:
   rules:
-    - host: rails6.192.168.99.100.xip.io
+    - host: rails6.192.168.99.101.xip.io
       http:
         paths:
           - path: /

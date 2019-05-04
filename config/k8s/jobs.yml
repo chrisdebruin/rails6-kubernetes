@@ -12,6 +12,11 @@ spec:
       containers:
       - name: rails6-migrate
         image: chrisdebruin/rails6
-        command: ["bundle", "exec", "rails", "db:prepare"]
+        command: ["bundle", "exec", "rails", "db:setup"]
         imagePullPolicy: Always
+        env:
+        - name: DATABASE_PASSWORD
+          value: ~
+        - name: DATABASE_HOST
+          value: mysql-cluster-ip-service
       restartPolicy: Never
