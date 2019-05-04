@@ -1,5 +1,8 @@
 #/bin/bash
 
-docker build --build-arg RAILS_MASTER_KEY=$(cat config/master.key) -t rails6 .
-docker tag rails6:latest chrisdebruin/rails6
-docker push chrisdebruin/rails6
+export CACHE_IMAGE=chrisdebruin/rails6
+
+docker pull $CACHE_IMAGE:$BRANCH_NAME || true
+docker build --cache-from $CACHE_IMAGE:$BRANCH_NAME --build-arg RAILS_MASTER_KEY=$(cat config/master.key) --tag $CACHE_IMAGE:$BRANCH_NAME .
+
+docker push $CACHE_IMAGE:$BRANCH_NAME
