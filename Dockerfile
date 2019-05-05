@@ -22,8 +22,9 @@ WORKDIR /usr/src/app
 # the RubyGems. This is a separate step so the dependencies
 # will be cached unless changes to one of those two files
 # are made.
-COPY Gemfile Gemfile.lock ./
-RUN gem install bundler && bundle install -j 5 --retry 5 --without development test
+COPY Gemfile Gemfile
+COPY Gemfile.lock Gemfile.lock
+RUN bundle install -j 5 --retry 5 --without development test
 
 # Set Rails to run in production
 ENV RAILS_ENV production
@@ -33,7 +34,6 @@ ENV RAILS_SERVE_STATIC_FILES 1
 
 # You must pass environment variable RAILS_MASTER_KEY
 ARG RAILS_MASTER_KEY
-#ENV RAILS_MASTER_KEY $RAILS_MASTER_KEY
 ENV RAILS_LOG_TO_STDOUT 1
 
 # Copy the main application.
