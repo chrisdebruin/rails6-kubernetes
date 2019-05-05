@@ -23,7 +23,7 @@ WORKDIR /usr/src/app
 # will be cached unless changes to one of those two files
 # are made.
 COPY Gemfile Gemfile.lock ./
-RUN gem install bundler && bundle install -j "$(getconf _NPROCESSORS_ONLN)" --retry 5 --without development test
+RUN gem install bundler && bundle install -j 5 --retry 5 --without development test
 
 # Set Rails to run in production
 ENV RAILS_ENV production
@@ -33,14 +33,14 @@ ENV RAILS_SERVE_STATIC_FILES 1
 
 # You must pass environment variable RAILS_MASTER_KEY
 ARG RAILS_MASTER_KEY
-ENV RAILS_MASTER_KEY $RAILS_MASTER_KEY
+#ENV RAILS_MASTER_KEY $RAILS_MASTER_KEY
 ENV RAILS_LOG_TO_STDOUT 1
 
 # Copy the main application.
 COPY . ./
 
 # Precompile Rails assets (plus Webpack)
-RUN bundle exec rake assets:precompile \
+RUN RAILS_MASTER_KEY=$RAILS_MASTER_KEY bundle exec rake assets:precompile \
   && rm -rf node_modules
 
 # Will run on port 3000 by default
