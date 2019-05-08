@@ -11,5 +11,8 @@
 
   <body>
     <%= yield %>
+    <footer>
+      revision: <%= ENV['REVISION'] %>
+    </footer>
   </body>
 </html>
