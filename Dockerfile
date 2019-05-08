@@ -26,8 +26,9 @@ COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
 RUN bundle install -j 5 --retry 5 --without development test
 
-# Set Rails to run in production
-ENV RAILS_ENV production
+# Set Rails env
+ARG RAILS_ENV
+ENV RAILS_ENV $RAILS_ENV
 ENV RAILS_ROOT /usr/src/app
 # Use Rails for static files in public
 ENV RAILS_SERVE_STATIC_FILES 1
@@ -35,7 +36,8 @@ ENV RAILS_SERVE_STATIC_FILES 1
 # You must pass environment variable RAILS_MASTER_KEY
 ARG RAILS_MASTER_KEY
 ENV RAILS_LOG_TO_STDOUT 1
-
+ARG GIT_REVISION
+ENV GIT_REVISION $GIT_REVISION
 # Copy the main application.
 COPY . ./
 
