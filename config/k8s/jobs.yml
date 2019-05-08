@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: rails6-migrate
-        image: chrisdebruin/rails6
+        image: chrisdebruin/rails6:master
         command: ["bundle", "exec", "rails", "db:setup"]
         imagePullPolicy: Always
         env:
@@ -19,4 +19,11 @@ spec:
           value: ~
         - name: DATABASE_HOST
           value: mysql-cluster-ip-service
+        - name: RAILS_ENV
+          value: staging
+        - name: RAILS_MASTER_KEY
+          valueFrom:
+            secretKeyRef:
+              name: rails-master-key
+              key: RAILS_MASTER_KEY
       restartPolicy: Never

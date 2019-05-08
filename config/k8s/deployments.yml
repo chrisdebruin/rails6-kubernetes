@@ -48,7 +48,7 @@ spec:
         app: rails6
     spec:
       containers:
-      - image: chrisdebruin/rails6
+      - image: chrisdebruin/rails6:master
         name: rails6
         ports:
         - containerPort: 3000
@@ -63,3 +63,10 @@ spec:
           value: ~
         - name: DATABASE_HOST
           value: mysql-cluster-ip-service
+        - name: RAILS_ENV
+          value: staging
+        - name: RAILS_MASTER_KEY
+          valueFrom:
+            secretKeyRef:
+              name: rails-master-key
+              key: RAILS_MASTER_KEY
