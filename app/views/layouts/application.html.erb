@@ -12,7 +12,7 @@
   <body>
     <%= yield %>
     <footer>
-      revision: <%= ENV['REVISION'] %>
+      revision: <%= ENV['GIT_REVISION'] %>
     </footer>
   </body>
 </html>

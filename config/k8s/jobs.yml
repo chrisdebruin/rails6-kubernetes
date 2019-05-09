@@ -12,7 +12,7 @@ spec:
       containers:
       - name: rails6-migrate
         image: chrisdebruin/rails6:master
-        command: ["bundle", "exec", "rails", "db:setup"]
+        command: ["bundle", "exec", "rails", "db:migrate"]
         imagePullPolicy: Always
         env:
         - name: DATABASE_PASSWORD
