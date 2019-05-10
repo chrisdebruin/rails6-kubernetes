@@ -13,4 +13,5 @@ coverage
 /config/*.key
 /public/packs*
 /config/k8s/*
+/vendor/bundle/*
 .semaphore-cache
