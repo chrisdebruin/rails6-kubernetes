@@ -4,8 +4,13 @@ metadata:
   name: rails6-ingress
   namespace: staging-env
 spec:
+  tls:
+  - hosts:
+    - k8s.flexcoder.nl
+    secretName: flexcoder-secret
   rules:
-    - http:
+    - host: k8s.flexcoder.nl
+      http:
         paths:
           - path: /*
             backend:
