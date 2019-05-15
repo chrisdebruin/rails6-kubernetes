@@ -1,6 +1,6 @@
 #/bin/bash
 
-export CACHE_IMAGE=chrisdebruin/rails6
+export CACHE_IMAGE=eu.gcr.io/cloud-run-238617/rails6
 export RAILS_ENV=staging
 
 if [[ "${CI}" ]]; then
