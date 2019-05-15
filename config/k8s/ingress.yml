@@ -5,10 +5,9 @@ metadata:
   namespace: staging-env
 spec:
   rules:
-    - host: rails6.192.168.99.105.xip.io
-      http:
+    - http:
         paths:
-          - path: /
+          - path: /*
             backend:
               serviceName: rails6-service
               servicePort: 80

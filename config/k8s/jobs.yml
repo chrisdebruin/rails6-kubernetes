@@ -11,8 +11,8 @@ spec:
     spec:
       containers:
       - name: rails6-migrate
-        image: chrisdebruin/rails6:master
-        command: ["bundle", "exec", "rails", "db:migrate"]
+        image: eu.gcr.io/cloud-run-238617/rails6:master
+        command: ["bundle", "exec", "rails", "db:prepare"]
         imagePullPolicy: Always
         env:
         - name: DATABASE_PASSWORD
