@@ -5,7 +5,6 @@ export RAILS_ENV=staging
 
 if [[ "${CI}" ]]; then
   # reset database.yml sice semaphore will overwrite it
-  git status
   git checkout -- config/database.yml
 fi
 
