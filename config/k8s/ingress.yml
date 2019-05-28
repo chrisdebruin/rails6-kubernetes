@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: rails6-ingress
+  name: web-ingress
   namespace: staging-env
 spec:
   tls:
@@ -14,5 +14,5 @@ spec:
         paths:
           - path: /*
             backend:
-              serviceName: rails6-service
+              serviceName: web-service
               servicePort: 80

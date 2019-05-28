@@ -1,55 +1,22 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql-deployment
-  namespace: staging-env
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      component: mysql
-  template:
-    metadata:
-      labels:
-        component: mysql
-    spec:
-      volumes:
-        - name: mysql-storage
-          persistentVolumeClaim:
-            claimName: database-persistent-volume-claim
-      containers:
-        - name: mysql
-          image: mysql:5.7
-          ports:
-            - containerPort: 3306
-          volumeMounts:
-            - name: mysql-storage
-              mountPath: /var/lib/mysql
-              subPath: mysql
-          env:
-            - name: MYSQL_ALLOW_EMPTY_PASSWORD
-              value: 'yes'
----
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  labels:
-    app: rails6
-  name: rails6-deployment
+  name: web-deployment
   namespace: staging-env
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: rails6
+      app: web
   template:
     metadata:
       labels:
-        app: rails6
+        app: web
     spec:
       containers:
       - image: eu.gcr.io/cloud-run-238617/rails6:master
-        name: rails6
+        name: web
         imagePullPolicy: Always
         resources:
           limits:
@@ -74,27 +41,27 @@ spec:
         - name: RAILS_MASTER_KEY
           valueFrom:
             secretKeyRef:
-              name: rails-master-key
-              key: RAILS_MASTER_KEY
+              name: rails-secrets
+              key: master-key
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rails6-job
+  name: job-deployment
   namespace: staging-env
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: rails6-job
+      app: delayed-job
   template:
     metadata:
       labels:
-        app: rails6-job
+        app: delayed-job
     spec:
       containers:
       - image: eu.gcr.io/cloud-run-238617/rails6:master
-        name: rails6-job
+        name: delayed-job
         imagePullPolicy: Always
         command: ["bundle", "exec", "rails", "jobs:work"]
         env:
@@ -107,5 +74,5 @@ spec:
         - name: RAILS_MASTER_KEY
           valueFrom:
             secretKeyRef:
-              name: rails-master-key
-              key: RAILS_MASTER_KEY
+              name: rails-secrets
+              key: master-key

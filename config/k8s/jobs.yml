@@ -1,16 +1,16 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: rails6-db-migrate
+  name: db-migrate
   namespace: staging-env
 spec:
   completions: 1
   template:
     metadata:
-      name: rails6-db-migrate
+      name: db-migrate
     spec:
       containers:
-      - name: rails6-migrate
+      - name: db-migrate
         image: eu.gcr.io/cloud-run-238617/rails6:master
         command: ["bundle", "exec", "rails", "db:prepare"]
         imagePullPolicy: Always
@@ -24,6 +24,6 @@ spec:
         - name: RAILS_MASTER_KEY
           valueFrom:
             secretKeyRef:
-              name: rails-master-key
-              key: RAILS_MASTER_KEY
+              name: rails-secrets
+              key: master-key
       restartPolicy: Never

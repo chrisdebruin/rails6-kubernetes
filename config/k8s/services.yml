@@ -14,10 +14,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: rails6-service
+  name: web-service
   namespace: staging-env
   labels:
-    app: rails6
+    app: web-deployment
 spec:
   type: NodePort
   ports:
@@ -25,4 +25,4 @@ spec:
       protocol: TCP
       targetPort: 3000
   selector:
-    app: rails6
+    app: web
