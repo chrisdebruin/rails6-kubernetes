@@ -1,6 +1,4 @@
 class HomeController < ApplicationController
 
-  def show
-    render plain: "Welcome"
-  end
+  def show; end
 end

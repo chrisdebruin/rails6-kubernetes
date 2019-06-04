@@ -1,5 +1,3 @@
 class StatusController < ApplicationController
-  def index
-    render plain: 'OK 200!!!'
-  end
+  def index; end
 end
