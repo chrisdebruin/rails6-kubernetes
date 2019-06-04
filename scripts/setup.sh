@@ -1,5 +1,3 @@
-kubectl create namespace staging-env
-
 kubectl config set-context --current --namespace=staging-env
 
 kubectl create secret generic rails-secrets --from-literal master-key=$(cat config/master.key)
