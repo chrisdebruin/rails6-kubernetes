@@ -18,5 +18,6 @@ jobs:
         sudo apt-get install libmysqlclient-dev
         gem install bundler
         bundle install --jobs 4 --retry 3 --without develeopment
+        yarn install
         bundle exec rails db:prepare
         bundle exec rails test
