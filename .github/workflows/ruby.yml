@@ -15,7 +15,7 @@ jobs:
         ruby-version: 2.6.x
     - name: Build and test with Rake
       run: |
-        apt-get install libmysqlclient-dev
+        sudo apt-get install libmysqlclient-dev
         gem install bundler
         bundle install --jobs 4 --retry 3 --without develeopment
         bundle exec rails db:prepare
